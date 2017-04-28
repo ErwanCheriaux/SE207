@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = main
+EXE = type_logique vecteurs
 
 all: $(EXE)
 

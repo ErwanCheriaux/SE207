@@ -1,10 +1,10 @@
-//main.cpp
+//type_logique.cpp
 
 #include <systemc.h>
 
 int sc_main (int argc, char * argv[])
 {
-   cout << "===Start example===" << endl;
+   cout << "===Start type_logique===" << endl;
    
    /*
     * sc_logic a(x);
