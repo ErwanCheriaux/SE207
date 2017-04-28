@@ -1,4 +1,4 @@
-//main.cpp
+//hello_world.cpp
 
 #include <systemc.h>
 
