@@ -1,3 +1,3 @@
-# My new project
+# SE207 Dépôt Git
 
-This is the default README.md. Please edit me.
+Bienvenue sur le gitLab de Erwan CHERIAUX !
