@@ -16,6 +16,7 @@ int sc_main (int argc, char * argv[])
    sc_logic b(false);
    sc_logic c('1');
    sc_logic d('Z');
+   sc_logic e;
 
    cout << "===Initialisation===" << endl;
    cout << "a = " << a << endl;
@@ -24,9 +25,6 @@ int sc_main (int argc, char * argv[])
    cout << "d = " << d << endl;
 
    cout << "===Operateur binaire===" << endl;
-
-   sc_logic e;
-
    e = a | b;
    cout << "e = a | b = " << e << endl;
    e = b | b;
@@ -63,7 +61,33 @@ int sc_main (int argc, char * argv[])
    e = ~d;
    cout << "e = ~d = " << e << '\n' << endl;
    
-   
+   cout << "===Operateur binaire avec Bool===" << endl;
+   e = a | false;
+   cout << "e = a | false = " << e << endl;
+   e = b | false;
+   cout << "e = b | false = " << e << endl;
+   e = c | false;
+   cout << "e = c | false = " << e << endl;
+   e = d | false;
+   cout << "e = d | false = " << e << '\n' << endl;
 
+   e = a & true;
+   cout << "e = a & true = " << e << endl;
+   e = b & true;
+   cout << "e = b & true = " << e << endl;
+   e = c & true;
+   cout << "e = c & true = " << e << endl;
+   e = d & true;
+   cout << "e = d & true = " << e << '\n' << endl;
+
+   e = a ^ true;
+   cout << "e = a ^ true = " << e << endl;
+   e = b ^ true;
+   cout << "e = b ^ true = " << e << endl;
+   e = c ^ true;
+   cout << "e = c ^ true = " << e << endl;
+   e = d ^ true;
+   cout << "e = d ^ true = " << e << '\n' << endl;
+   
    return 0;
 }
