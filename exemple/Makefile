@@ -1,5 +1,6 @@
 .PHONY: all clean
 
+SYSTEMC   ?= /usr/local/systemc-2.3.1
 SYSTEMC   ?= /comelec/softs/opt/systemc/current
 ARCH       = linux64
 
