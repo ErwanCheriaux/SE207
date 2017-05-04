@@ -11,7 +11,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = type_logique vecteurs
+EXE = type_logique vecteurs entiers_taille_arbitraire
 
 all: $(EXE)
 
