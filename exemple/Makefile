@@ -11,7 +11,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = type_logique vecteurs entiers_taille_arbitraire
+EXE = type_logique vecteurs entiers_taille_arbitraire fixed fix time
 
 all: $(EXE)
 
