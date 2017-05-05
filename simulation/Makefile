@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = sc_start trace_vcd sc_signal pixel
+EXE = sc_start trace_vcd sc_signal pixel horloge
 
 all: $(EXE)
 

@@ -10,6 +10,7 @@ hello_world/hello_world
 **/trace_vcd
 **/sc_signal
 **/pixel
+**/horloge
 
 **/*.vcd
 **/*.swp

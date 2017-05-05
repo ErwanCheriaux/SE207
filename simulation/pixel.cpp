@@ -1,3 +1,5 @@
+//pixel.cpp
+
 #include <systemc.h>
 
 // un type utilisateur
