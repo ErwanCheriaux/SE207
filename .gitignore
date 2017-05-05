@@ -8,6 +8,8 @@ hello_world/hello_world
 **/time
 **/sc_start
 **/trace_vcd
+**/sc_signal
+**/pixel
 
 **/*.vcd
 **/*.swp
