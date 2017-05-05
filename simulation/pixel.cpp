@@ -2,7 +2,9 @@
 
 // un type utilisateur
 struct pixel {
-   int r, g, b;
+   sc_uint<5> r;
+   sc_uint<6> g;
+   sc_uint<5> b;
    // un constructeur particulier avec des valeurs par défaut
    pixel(int _r=0, int _g=0, int _b=0): r(_r), g(_g), b(_b) { }
 
@@ -36,9 +38,9 @@ int sc_main (int argc, char * argv[])
    sc_trace(trace_f, P, "pixel");
 
    // affectation au signal
-   for(int r=0; r<255; r++) {
-      for(int g=0; g<255; g++) {
-         for(int b=0; b<255; b++) {
+   for(int r=0; r<70; r++) {
+      for(int g=0; g<70; g++) {
+         for(int b=0; b<70; b++) {
             P = pixel(r,g,b);
             sc_start(1,SC_NS);
          }
