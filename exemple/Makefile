@@ -1,12 +1,11 @@
 .PHONY: all clean
 
-SYSTEMC   ?= /usr/local/systemc-2.3.1
-SYSTEMC   ?= /comelec/softs/opt/systemc/current
+SYSTEMC   ?= /usr/local
 ARCH       = linux64
 
 CPPFLAGS  =  -isystem $(SYSTEMC)/include
 CXXFLAGS  =  -Wall -g
-LDFLAGS   =  -L$(SYSTEMC)/lib-$(ARCH)
+LDFLAGS   =  -L$(SYSTEMC)/lib
 LDLIBS    =  -lsystemc
 
 CC = g++
