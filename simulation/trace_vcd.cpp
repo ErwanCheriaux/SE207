@@ -4,6 +4,20 @@
 
 int sc_main (int argc, char * argv[])
 {
+   if(argc != 2)
+   {
+      cout << "Mauvais nombre d'arguments : 2" << endl;
+      return 1;
+   }
+
+   int N = atoi(argv[1]);
+
+   if(N<0 or N>255)
+   {
+      cout << "L'argument doit être entre 0 et 255 !" << endl;
+      return 1;
+   }
+
    // Un pointeur sur l'objet qui permet de gérer les traces
    sc_trace_file *trace_f;
 
@@ -24,13 +38,11 @@ int sc_main (int argc, char * argv[])
    sc_trace(trace_f, t, "t");
 
    // La simulation
-   sc_start(10,SC_NS);
-   t = !t; 
-   sc_start(10,SC_NS);
-   t = !t; 
-   sc_start(10,SC_NS);
-   t = !t; 
-   sc_start(10,SC_NS);
+   for(int i=0; i<N; i++)
+   {
+      sc_start(10,SC_NS);
+      t = !t;
+   }
 
    // Ferme le fichier de trace
    // ne peut êter fait qu'à la fin de la simulation
