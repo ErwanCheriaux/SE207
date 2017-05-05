@@ -28,14 +28,22 @@ void sc_trace( sc_trace_file* _f, const pixel& _foo, const std::string& _s ) {
 int sc_main (int argc, char * argv[])
 {
    sc_signal<pixel> P;
-   cout << "--> @ " << sc_time_stamp() << " P = " << P << endl;
+
+   // trace VCD
+   sc_trace_file *trace_f;
+   trace_f = sc_create_vcd_trace_file ("pixel");
+   trace_f->set_time_unit(1,SC_NS);
+   sc_trace(trace_f, P, "pixel");
 
    // affectation au signal
-   P = pixel(33,22,11);
-   cout << "--> @ " << sc_time_stamp() << " P = " << P << endl;
-
-   sc_start(1,SC_NS);
-   cout << "--> @ " << sc_time_stamp() << " P = " << P << endl;
+   for(int r=0; r<255; r++) {
+      for(int g=0; g<255; g++) {
+         for(int b=0; b<255; b++) {
+            P = pixel(r,g,b);
+            sc_start(1,SC_NS);
+         }
+      }
+   }
 
    return 0;
 }
