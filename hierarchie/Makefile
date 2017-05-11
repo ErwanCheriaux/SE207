@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = foobar
+EXE = foobar export
 
 all: $(EXE)
 
