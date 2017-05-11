@@ -38,7 +38,7 @@ SC_MODULE(foobar)
 
 int sc_main(int argc, char * argv[])
 {
-   sc_signal<bool> i("i");
+   sc_clock i("i",10,SC_NS);
    sc_signal<bool> o("o");
 
    foobar uut("foobar");
@@ -50,8 +50,10 @@ int sc_main(int argc, char * argv[])
    sc_trace_file *trace_f;
    trace_f = sc_create_vcd_trace_file ("foobar");
    trace_f->set_time_unit(1,SC_NS);
-   sc_trace(trace_f, uut, "uut");
-   sc_start(3000, SC_NS);
+   sc_trace(trace_f, i, "input");
+   sc_trace(trace_f, o, "output");
+   sc_trace(trace_f, uut.s, "intern");
+   sc_start(1000, SC_NS);
    sc_close_vcd_trace_file(trace_f);
 
    return 0;
