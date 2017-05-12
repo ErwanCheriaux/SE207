@@ -16,16 +16,16 @@ struct pixel
       return (r == other.r) && (g == other.g) && (b == other.b);
    }
 
-   pixel operator + (const pixel &other)
-   {
-      unsigned int r_sat = r.to_int() + other.r.to_int();
-      unsigned int g_sat = g.to_int() + other.g.to_int();
-      unsigned int b_sat = b.to_int() + other.b.to_int();
+   friend pixel operator + (const pixel &p1, const pixel &p2)
+   {  
+      unsigned int r_sat = p1.r.to_int() + p2.r.to_int();
+      unsigned int g_sat = p1.g.to_int() + p2.g.to_int();
+      unsigned int b_sat = p1.b.to_int() + p2.b.to_int();
 
       if(r_sat > 31) r_sat = 31;
       if(g_sat > 63) g_sat = 63;
       if(b_sat > 31) b_sat = 31;
-      
+   
       return pixel(r_sat, g_sat, b_sat);
    }
 
@@ -54,14 +54,14 @@ SC_MODULE(somme)
 
    SC_CTOR(somme)
    {
-      SC_METHOD(somme);
+      SC_METHOD(sommeSature);
       sensitive << p1 << p2;
       dont_initialize();
    }
 
    void sommeSature()
    {
-      p = p1 + p2;
+      p.write(p1.read() + p2.read());
    }
 };
 

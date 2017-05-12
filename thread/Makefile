@@ -5,7 +5,7 @@ ARCH       = linux64
 
 CPPFLAGS  =  -isystem $(SYSTEMC)/include
 CXXFLAGS  =  -Wall -g
-LDFLAGS   =  -L$(SYSTEMC)/lib
+LDFLAGS  ?=  -L$(SYSTEMC)/lib
 LDLIBS    =  -lsystemc
 
 CC = g++
