@@ -13,6 +13,7 @@ hello_world/hello_world
 **/horloge
 **/foobar
 **/export
+**/somme
 
 **/*.vcd
 **/*.swp

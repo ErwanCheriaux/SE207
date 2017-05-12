@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = pixel
+EXE = somme
 
 all: $(EXE)
 
