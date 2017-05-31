@@ -1,4 +1,4 @@
-//somme.cpp
+//somme_methode.cpp
 
 #include <systemc.h>
 #include "pixel.h"

@@ -1,4 +1,4 @@
-//somme.cpp
+//somme_thread.cpp
 
 #include <systemc.h>
 #include "pixel.h"
@@ -13,7 +13,6 @@ SC_MODULE(somme)
    SC_CTOR(somme):p1("p1"), p2("p2"), p("p")
    {
       SC_THREAD(sommeSature);
-      dont_initialize();
    }
 
    void sommeSature()
