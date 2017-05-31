@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = somme_methode somme_thread colors_methode
+EXE = somme_methode somme_thread colors_methode colors_thread
 
 all: $(EXE)
 
