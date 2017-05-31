@@ -13,7 +13,8 @@ hello_world/hello_world
 **/horloge
 **/foobar
 **/export
-**/somme
+**/somme_methode
+**/somme_thread
 
 **/*.vcd
 **/*.swp
