@@ -75,6 +75,7 @@ int sc_main (int argc, char * argv[])
    sc_trace(trace_f, rst,      "Reset");
    sc_trace(trace_f, P_output, "pixel_output");
 
+   sc_start(1,SC_NS);
    rst = true;
    sc_start(10,SC_NS);
    rst = false;
