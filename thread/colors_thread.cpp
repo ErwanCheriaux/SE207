@@ -21,6 +21,11 @@ SC_MODULE(colors)
 
    void all_colors()
    {
+      r=0;
+      g=0;
+      b=0;
+      p.write(pixel(r,g,b));
+
       while(1)
       {
          wait();
