@@ -15,6 +15,9 @@ hello_world/hello_world
 **/export
 **/somme_methode
 **/somme_thread
+**/colors_methode
+**/colors_thread
+**/colors_cthread
 
 **/*.vcd
 **/*.swp
