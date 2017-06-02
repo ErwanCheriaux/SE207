@@ -1,9 +1,13 @@
 //PGCD_thread.cpp
 
 #include <systemc.h>
+#include <algorithm>
 
-unsigned int pgcd_algo(unsigned int a, unsigned int b);
+using namespace std;
+
+sc_uint<8> pgcd_algo(sc_uint<8> a, sc_uint<8> b);
 void next_cycle(sc_signal<bool> &signal_clk);
+void pulse(sc_signal<bool> &signal, sc_signal<bool> &clk);
 
 // les modules
 SC_MODULE(pgcd)
@@ -24,7 +28,17 @@ SC_MODULE(pgcd)
 
    void calcule_pgcd()
    {
-      PGCD.write(pgcd_algo(A,B));
+      while(1)
+      {
+         wait();
+         if(valid)
+         {
+            PGCD.write(pgcd_algo(A,B));
+            ready.write(true);
+            wait(1);
+            ready.write(false);
+         }
+      }
    }
 };
 
@@ -58,24 +72,47 @@ int sc_main (int argc, char * argv[])
    sc_trace(trace_f, ready, "ready");
    sc_trace(trace_f, PGCD, "PGCD");
 
+   sc_start(1, SC_NS);
+
    // affectation au signal
    A = 45;
    B = 95;
-   for(int i=0; i<50; i++) next_cycle(clk);
-   sc_start(1,SC_NS);
+   pulse(valid, clk);
+   for(int i=0; i<4; i++) next_cycle(clk);
+
+   A = 100;
+   B = 150;
+   pulse(valid, clk);
+   for(int i=0; i<4; i++) next_cycle(clk);
+
+   //feinte
+   A = 45;
+   B = 9;
+   for(int i=0; i<4; i++) next_cycle(clk);
+
+   A = 222;
+   B = 111;
+   pulse(valid, clk);
+   for(int i=0; i<4; i++) next_cycle(clk);
+
+   A = 45;
+   B = 9;
+   pulse(valid, clk);
+   for(int i=0; i<4; i++) next_cycle(clk);
+
    return 0;
 }
 
-unsigned int pgcd_algo(unsigned int a, unsigned int b)
+sc_uint<8> pgcd_algo(sc_uint<8> a, sc_uint<8> b)
 {
-   unsigned int MAX = max(a,b);
-   unsigned int MIN = min(a,b);
+   sc_uint<8> MAX = max(a,b);
+   sc_uint<8> MIN = min(a,b);
 
    while(MAX > 0 and MIN >0)
    {
       MAX = MAX - MIN;
 
-      unsigned int tmp = max(MAX,MIN);
+      sc_uint<8> tmp = max(MAX,MIN);
 
       MIN = min(MAX,MIN);
       MAX = tmp;
@@ -90,4 +127,11 @@ void next_cycle(sc_signal<bool> &signal_clk)
    sc_start(1, SC_NS);
    signal_clk = true;
    sc_start(1, SC_NS);
+}
+
+void pulse(sc_signal<bool> &signal, sc_signal<bool> &clk)
+{
+   signal = true;
+   next_cycle(clk);
+   signal = false;
 }

@@ -31,6 +31,7 @@ int main(void)
    cout << "pgcd entre 5 et 10    : " << pgcd(5, 10) << endl;
    cout << "pgcd entre 9 et 10    : " << pgcd(9, 10) << endl;
    cout << "pgcd entre 2 et 10    : " << pgcd(2, 10) << endl;
+   cout << "pgcd entre 45 et 95   : " << pgcd(45, 95) << endl;
    cout << "pgcd entre 456 et 842 : " << pgcd(456, 842) << endl;
    cout << "pgcd entre 100 et 150 : " << pgcd(100, 150) << endl;
    cout << "pgcd entre 222 et 111 : " << pgcd(222, 111) << endl;
