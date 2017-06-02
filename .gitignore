@@ -1,5 +1,4 @@
-hello_world/hello_world
-
+**/hello_world
 **/type_logique
 **/vecteurs
 **/entiers_taille_arbitraire
@@ -18,6 +17,7 @@ hello_world/hello_world
 **/colors_methode
 **/colors_thread
 **/colors_cthread
+**/main
 
-**/*.vcd
-**/*.swp
+*.vcd
+*.swp
