@@ -19,7 +19,7 @@ hello_world/hello_world
 **/colors_thread
 **/colors_cthread
 **/PGCD_algo
-**/PGCD_thread
+**/PGCD_cthread
 
 *.vcd
 *.swp

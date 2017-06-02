@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc -std=c++11
 
 CC = g++
 
-EXE = PGCD_algo PGCD_thread
+EXE = PGCD_algo PGCD_cthread
 
 all: $(EXE)
 

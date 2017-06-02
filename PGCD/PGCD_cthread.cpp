@@ -22,8 +22,7 @@ SC_MODULE(pgcd)
 
    SC_CTOR(pgcd):clk("clk"), valid("valid"), A("A"), B("B"), ready("ready"), PGCD("PGCD")
    {
-      SC_THREAD(calcule_pgcd);
-      sensitive << clk.pos();
+      SC_CTHREAD(calcule_pgcd, clk.pos());
    }
 
    void calcule_pgcd()
