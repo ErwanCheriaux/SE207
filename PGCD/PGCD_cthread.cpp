@@ -30,7 +30,7 @@ SC_MODULE(pgcd)
       while(1)
       {
          wait();
-         if(valid)
+         if(valid.read())
          {
             PGCD.write(pgcd_algo(A,B));
             ready.write(true);
@@ -62,7 +62,7 @@ int sc_main (int argc, char * argv[])
 
    // trace VCD
    sc_trace_file *trace_f;
-   trace_f = sc_create_vcd_trace_file ("PGCD_thread");
+   trace_f = sc_create_vcd_trace_file("PGCD_cthread");
    trace_f->set_time_unit(1,SC_NS);
    sc_trace(trace_f, clk, "clk");
    sc_trace(trace_f, valid, "valid");
@@ -71,18 +71,21 @@ int sc_main (int argc, char * argv[])
    sc_trace(trace_f, ready, "ready");
    sc_trace(trace_f, PGCD, "PGCD");
 
-   sc_start(1, SC_NS);
+   sc_start(SC_ZERO_TIME);
+   next_cycle(clk);
 
    // affectation au signal
    A = 45;
    B = 95;
    pulse(valid, clk);
-   for(int i=0; i<4; i++) next_cycle(clk);
+   while(!ready.read()) next_cycle(clk);
+   while(ready.read())  next_cycle(clk);
 
    A = 100;
    B = 150;
    pulse(valid, clk);
-   for(int i=0; i<4; i++) next_cycle(clk);
+   while(!ready.read()) next_cycle(clk);
+   while(ready.read())  next_cycle(clk);
 
    //feinte
    A = 45;
@@ -92,12 +95,14 @@ int sc_main (int argc, char * argv[])
    A = 222;
    B = 111;
    pulse(valid, clk);
-   for(int i=0; i<4; i++) next_cycle(clk);
+   while(!ready.read()) next_cycle(clk);
+   while(ready.read())  next_cycle(clk);
 
    A = 45;
    B = 9;
    pulse(valid, clk);
-   for(int i=0; i<4; i++) next_cycle(clk);
+   while(!ready.read()) next_cycle(clk);
+   while(ready.read())  next_cycle(clk);
 
    return 0;
 }
@@ -115,6 +120,7 @@ sc_uint<8> pgcd_algo(sc_uint<8> a, sc_uint<8> b)
 
       MIN = min(MAX,MIN);
       MAX = tmp;
+      wait(1);
    }
 
    return MAX;
