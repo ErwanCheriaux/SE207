@@ -1,4 +1,4 @@
-//PGCD_thread.cpp
+//PGCD_chread.cpp
 
 #include <systemc.h>
 #include <algorithm>
