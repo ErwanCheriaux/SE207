@@ -10,9 +10,9 @@ LDLIBS    =  -lsystemc -std=c++11
 
 CC = g++
 
-EXE = PGCD_algo PGCD_cthread
+EXE = PGCD_algo PGCD_cthread PGCD_method
 
 all: $(EXE)
 
 clean:
-	@rm -f $(EXE)
+	@rm -f $(EXE) $(EXE).vcd
