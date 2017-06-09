@@ -20,6 +20,8 @@ hello_world/hello_world
 **/colors_cthread
 **/PGCD_algo
 **/PGCD_cthread
+**/PGCD_method
+**/buffer
 
 *.vcd
 *.swp
