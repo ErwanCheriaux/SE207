@@ -2,13 +2,14 @@
 
 #include <systemc.h>
 #include <cstdlib>
+#include "pixel.h"
 
 void next_cycle(sc_signal<bool> &signal_clk);
 
 SC_MODULE(producteur)
 {
    sc_in<bool> clk;
-   sc_fifo_out<int> out;
+   sc_fifo_out<pixel> out;
 
    //true  = production des 20 pixels
    //false = attente aléatoire
@@ -30,7 +31,7 @@ SC_MODULE(producteur)
          wait();
          if(etat)
          {
-            out.write(cpt);
+            out.write(pixel(rand(),rand(),rand()));
             if(cpt-- == 0)
             {
                cpt  = rand()%33;
@@ -52,7 +53,7 @@ SC_MODULE(producteur)
 SC_MODULE(consomateur)
 {
    sc_in<bool> clk;
-   sc_fifo_in<int> in;
+   sc_fifo_in<pixel> in;
 
    int cpt;
 
@@ -68,7 +69,7 @@ SC_MODULE(consomateur)
       while(1)
       {
          wait();
-         if(cpt-- == 0) cpt = in.read()%2+2;
+         if(cpt-- == 0) cpt = in.read().sum()%2+2;
       }
    }
 };
@@ -76,7 +77,7 @@ SC_MODULE(consomateur)
 int sc_main (int argc, char * argv[])
 {
    sc_signal<bool> clk;
-   sc_fifo<int> fifo(50);
+   sc_fifo<pixel> fifo(50);
 
    producteur  P("producteur");
    consomateur C("consomateur");
