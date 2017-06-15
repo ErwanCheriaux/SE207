@@ -22,6 +22,7 @@ hello_world/hello_world
 **/PGCD_cthread
 **/PGCD_method
 **/buffer
+**/fifo
 
 *.vcd
 *.swp

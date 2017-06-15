@@ -54,6 +54,8 @@ SC_MODULE(consomateur)
    sc_in<bool> clk;
    sc_fifo_in<int> in;
 
+   int cpt;
+
    SC_CTOR(consomateur):clk("clk"), in("in")
    {
       SC_THREAD(consomation);
@@ -62,9 +64,11 @@ SC_MODULE(consomateur)
 
    void consomation()
    {
+      cpt = 0;
       while(1)
       {
          wait();
+         if(cpt-- == 0) cpt = in.read()%2+2;
       }
    }
 };
