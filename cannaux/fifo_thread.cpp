@@ -1,4 +1,4 @@
-//fifo.cpp
+//fifo_thread.cpp
 
 #include <systemc.h>
 #include <cstdlib>

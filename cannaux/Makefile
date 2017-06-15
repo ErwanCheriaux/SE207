@@ -10,7 +10,7 @@ LDLIBS    =  -lsystemc
 
 CC = g++
 
-EXE = buffer fifo
+EXE = buffer fifo_thread fifo_method
 
 all: $(EXE)
 
