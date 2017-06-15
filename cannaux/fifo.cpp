@@ -1,6 +1,7 @@
 //fifo.cpp
 
 #include <systemc.h>
+#include <cstdlib>
 
 void next_cycle(sc_signal<bool> &signal_clk);
 
@@ -32,8 +33,8 @@ SC_MODULE(producteur)
             out.write(cpt);
             if(cpt-- == 0)
             {
-               cpt  = 5; //random
-               etat = false;
+               cpt  = rand()%33;
+               etat = !etat;
             }
          }
          else
@@ -41,7 +42,7 @@ SC_MODULE(producteur)
             if(cpt-- == 0)
             {
                cpt  = 20;
-               etat = true;
+               etat = !etat;
             }
          }
       }
