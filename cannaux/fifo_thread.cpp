@@ -89,7 +89,7 @@ int sc_main (int argc, char * argv[])
 
    // trace VCD
    sc_trace_file *trace_f;
-   trace_f = sc_create_vcd_trace_file ("fifo");
+   trace_f = sc_create_vcd_trace_file ("fifo_thread");
    trace_f->set_time_unit(1,SC_NS);
    sc_trace(trace_f, clk, "clk");
    sc_trace(trace_f, fifo, "fifo");

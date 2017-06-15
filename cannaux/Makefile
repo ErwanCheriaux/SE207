@@ -15,4 +15,4 @@ EXE = buffer fifo_thread fifo_method
 all: $(EXE)
 
 clean:
-	@rm -f $(EXE) $(EXE).vcd
+	@rm -f $(EXE) *.vcd
