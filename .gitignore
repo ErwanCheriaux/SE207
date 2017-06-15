@@ -24,6 +24,7 @@ hello_world/hello_world
 **/buffer
 **/fifo_thread
 **/fifo_method
+**/mutex
 
 *.vcd
 *.swp
