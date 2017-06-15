@@ -2,12 +2,19 @@
 
 #include <systemc.h>
 
+void next_cycle(sc_signal<bool> &signal_clk);
+
 SC_MODULE(producteur)
 {
-   sc_signal<bool> clk;
-   sc_fifo_in<int> in;
+   sc_in<bool> clk;
+   sc_fifo_out<int> out;
 
-   SC_CTOR(producteur):clk("clk"), in("in")
+   //true  = production des 20 pixels
+   //false = attente aléatoire
+   bool etat;
+   int  cpt;
+
+   SC_CTOR(producteur):clk("clk"), out("out")
    {
       SC_THREAD(production);
       sensitive << clk.pos();
@@ -15,19 +22,38 @@ SC_MODULE(producteur)
 
    void production()
    {
+      etat = true;
+      cpt  = 20;
       while(1)
       {
          wait();
+         if(etat)
+         {
+            out.write(cpt);
+            if(cpt-- == 0)
+            {
+               cpt  = 5; //random
+               etat = false;
+            }
+         }
+         else
+         {
+            if(cpt-- == 0)
+            {
+               cpt  = 20;
+               etat = true;
+            }
+         }
       }
    }
-}
+};
 
 SC_MODULE(consomateur)
 {
-   sc_signal<bool> clk;
-   sc_fifo_out<int> out;
+   sc_in<bool> clk;
+   sc_fifo_in<int> in;
 
-   SC_CTOR(consomateur):clk("clk"), out("out")
+   SC_CTOR(consomateur):clk("clk"), in("in")
    {
       SC_THREAD(consomation);
       sensitive << clk.pos();
@@ -40,7 +66,7 @@ SC_MODULE(consomateur)
          wait();
       }
    }
-}
+};
 
 int sc_main (int argc, char * argv[])
 {
@@ -50,17 +76,28 @@ int sc_main (int argc, char * argv[])
    producteur  P("producteur");
    consomateur C("consomateur");
 
-   P.in(fifo);
+   P.out(fifo);
    P.clk(clk);
-   C.out(fifo);
+   C.in(fifo);
    C.clk(clk);
 
    // trace VCD
    sc_trace_file *trace_f;
-   trace_f = sc_create_vcd_trace_file ("buffer");
+   trace_f = sc_create_vcd_trace_file ("fifo");
    trace_f->set_time_unit(1,SC_NS);
    sc_trace(trace_f, clk, "clk");
    sc_trace(trace_f, fifo, "fifo");
 
+   sc_start(SC_ZERO_TIME);
+   for(int i=0; i<500; i++) next_cycle(clk);
+
    return 0;
+}
+
+void next_cycle(sc_signal<bool> &signal_clk)
+{
+   signal_clk = false;
+   sc_start(1, SC_NS);
+   signal_clk = true;
+   sc_start(1, SC_NS);
 }
