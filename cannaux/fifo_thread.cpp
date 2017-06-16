@@ -1,12 +1,13 @@
 //fifo_thread.cpp
 
+//#define DEBUG_SYSTEMC
 #include <systemc.h>
 #include <cstdlib>
 #include "pixel.h"
 
 void next_cycle(sc_signal<bool> &signal_clk);
 
-SC_MODULE(producteur)
+SC_MODULE(Producteur)
 {
    sc_in<bool> clk;
    sc_fifo_out<pixel> out;
@@ -16,7 +17,7 @@ SC_MODULE(producteur)
    bool etat;
    int  cpt;
 
-   SC_CTOR(producteur):clk("clk"), out("out")
+   SC_CTOR(Producteur):clk("clk"), out("out")
    {
       SC_THREAD(production);
       sensitive << clk.pos();
@@ -50,14 +51,14 @@ SC_MODULE(producteur)
    }
 };
 
-SC_MODULE(consomateur)
+SC_MODULE(Consomateur)
 {
    sc_in<bool> clk;
    sc_fifo_in<pixel> in;
 
    int cpt;
 
-   SC_CTOR(consomateur):clk("clk"), in("in")
+   SC_CTOR(Consomateur):clk("clk"), in("in")
    {
       SC_THREAD(consomation);
       sensitive << clk.pos();
@@ -79,8 +80,8 @@ int sc_main (int argc, char * argv[])
    sc_signal<bool> clk;
    sc_fifo<pixel> fifo(50);
 
-   producteur  P("producteur");
-   consomateur C("consomateur");
+   Producteur  P("producteur");
+   Consomateur C("consomateur");
 
    P.out(fifo);
    P.clk(clk);
@@ -92,10 +93,15 @@ int sc_main (int argc, char * argv[])
    trace_f = sc_create_vcd_trace_file ("fifo_thread");
    trace_f->set_time_unit(1,SC_NS);
    sc_trace(trace_f, clk, "clk");
-   sc_trace(trace_f, fifo, "fifo");
+   fifo.trace(trace_f);
 
    sc_start(SC_ZERO_TIME);
-   for(int i=0; i<500; i++) next_cycle(clk);
+   for(int i=0; i<50; i++)
+   {
+      next_cycle(clk);
+      cout << "-----------------------------------" << endl;
+      cout << fifo;
+   }
 
    return 0;
 }
