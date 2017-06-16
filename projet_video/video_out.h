@@ -10,8 +10,8 @@
 SC_MODULE(VIDEO_OUT) {
 
    // IO PORTS
-   sc_in<bool>  clk;
-   sc_in<bool>  reset_n;
+   sc_in<bool> clk;
+   sc_in<bool> reset_n;
 
    sc_in<bool> href;
    sc_in<bool> vref;
@@ -21,7 +21,7 @@ SC_MODULE(VIDEO_OUT) {
    /***************************************************
     *  constructeur
     **************************************************/
-   SC_CTOR(VIDEO_OUT):base_name("wallace")
+   SC_CTOR(VIDEO_OUT):base_name("wallace_out_")
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
@@ -46,11 +46,12 @@ SC_MODULE(VIDEO_OUT) {
    void read_port();
    void write_image();
 
-   const std::string base_name;              // nom de base des images d'entrée
-   int               current_image_number;   // numéro de l'image courante
-   bool              reset_done;
+   const std::string base_name;  // nom de base des images d'entrée
+   int   current_image_number;   // numéro de l'image courante
+   int   cpt_pixel;
+   bool  reset_done;
 
-   Image             image;
+   Image image;
 };
 
 #endif
