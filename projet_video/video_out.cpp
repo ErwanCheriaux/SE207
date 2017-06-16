@@ -21,12 +21,12 @@ void VIDEO_OUT::read_port()
    // boucle infinie
    while(1)
    {
+      wait();
       if(!reset_done)
          cerr << "modul: " << name() << " démarré sans reset!" << endl;
       if(href and vref)
       {
          // on attend le prochain coup d'horloge
-         wait();
          image.pixel[cpt_pixel] = pixel_in;
 
          if(++cpt_pixel > 720*576)

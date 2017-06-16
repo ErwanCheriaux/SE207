@@ -25,7 +25,7 @@ SC_MODULE(VIDEO_OUT) {
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
-      SC_THREAD(write_image);
+      SC_THREAD(read_port);
       sensitive << clk.pos();
       async_reset_signal_is(reset_n,false);
       dont_initialize();
@@ -33,7 +33,6 @@ SC_MODULE(VIDEO_OUT) {
       current_image_number = 0;
       reset_done  = false;
       image.pixel = NULL;
-      read_port();
 
       cout << "... réussie" << endl;
    }
