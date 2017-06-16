@@ -24,7 +24,7 @@ void VIDEO_OUT::read_port()
       wait();
       if(!reset_done)
          cerr << "modul: " << name() << " démarré sans reset!" << endl;
-      if(href and vref)
+      if(href)
       {
          // on attend le prochain coup d'horloge
          image.pixel[cpt_pixel] = pixel_in;

@@ -33,6 +33,8 @@ SC_MODULE(VIDEO_OUT) {
       current_image_number = 0;
       reset_done  = false;
       image.pixel = (unsigned char *)malloc(720*576*sizeof(unsigned char));
+      image.width  = 720;
+      image.height = 576;
 
       cout << "... réussie" << endl;
    }
