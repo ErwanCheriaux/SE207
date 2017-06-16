@@ -29,11 +29,11 @@ void VIDEO_OUT::read_port()
          // on attend le prochain coup d'horloge
          image.pixel[cpt_pixel] = pixel_in;
 
-         if(++cpt_pixel > 720*576)
+         if(cpt_pixel++ > 720*576-2)
          {
             // On a fini une image, on passe à la suivante
             write_image();
-            current_image_number++;
+            current_image_number = (current_image_number + 1)%4;
             cpt_pixel = 0;
          }
       }
