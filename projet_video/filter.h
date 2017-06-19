@@ -55,6 +55,8 @@ SC_MODULE(Filter) {
    int   cpt_median_h;
    unsigned char *pixel_in;
    int            pixel_out;
+   int   delay;
+   int   pixel_new;
 };
 
 #endif
