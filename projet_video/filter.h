@@ -35,9 +35,6 @@ SC_MODULE(Filter) {
 
       reset_done  = false;
       pixel_in  = (unsigned char *)malloc(720*576*sizeof(unsigned char));
-      pixel_out = (unsigned char *)malloc(720*576*sizeof(unsigned char));
-
-      for(int i=0; i<9; i++) matrix_filter[i] = 1;
 
       cout << "... réussie" << endl;
    }
@@ -56,10 +53,8 @@ SC_MODULE(Filter) {
    int   cpt_pixel_h;
    int   cpt_median_w;
    int   cpt_median_h;
-   pixel *pixel_in;
-   pixel *pixel_out;
-
-   int matrix_filter[9];
+   unsigned char *pixel_in;
+   int            pixel_out;
 };
 
 #endif
