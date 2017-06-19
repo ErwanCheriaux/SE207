@@ -28,12 +28,16 @@ SC_MODULE(Filter) {
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
-      SC_THREAD(median_filter);
+      SC_THREAD(getImage);
       sensitive << clk.pos();
       async_reset_signal_is(reset_n,false);
       dont_initialize();
 
       reset_done  = false;
+      pixel_in  = (unsigned char *)malloc(720*576*sizeof(unsigned char));
+      pixel_out = (unsigned char *)malloc(720*576*sizeof(unsigned char));
+
+      for(int i=0; i<9; i++) matrix_filter[i] = 1;
 
       cout << "... réussie" << endl;
    }
@@ -43,10 +47,19 @@ SC_MODULE(Filter) {
     **************************************************/
    private:
 
+   void getImage();
    void median_filter();
 
    const std::string base_name; // nom de base des images d'entrée
-   bool reset_done;
+   bool  reset_done;
+   int   cpt_pixel_w;
+   int   cpt_pixel_h;
+   int   cpt_median_w;
+   int   cpt_median_h;
+   pixel *pixel_in;
+   pixel *pixel_out;
+
+   int matrix_filter[9];
 };
 
 #endif
