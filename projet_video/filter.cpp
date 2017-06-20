@@ -53,6 +53,5 @@ void Filter::median_filter()
          if(index-j >= 0)
             tmp += pixel_in[(index-j)+(720*i)];
 
-   //p_out = (unsigned char)tmp/9;
-   p_out = p_in;
+   p_out = (unsigned char)tmp/9;
 }
