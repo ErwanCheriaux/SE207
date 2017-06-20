@@ -33,8 +33,9 @@ SC_MODULE(Filter) {
       async_reset_signal_is(reset_n,false);
       dont_initialize();
 
-      reset_done  = false;
-      pixel_in  = (unsigned char *)malloc(720*576*sizeof(unsigned char));
+      reset_done = false;
+      pixel_in   = (unsigned char *)malloc(720*576*sizeof(unsigned char));
+      pixel_out  = (unsigned char *)malloc(720*576*sizeof(unsigned char));
 
       cout << "... réussie" << endl;
    }
@@ -47,6 +48,9 @@ SC_MODULE(Filter) {
    void getImage();
    void median_filter();
 
+   void debugImageIN();
+   void debugImageOUT();
+
    const std::string base_name; // nom de base des images d'entrée
    bool  reset_done;
    int   cpt_pixel_w;
@@ -54,7 +58,7 @@ SC_MODULE(Filter) {
    int   cpt_median_w;
    int   cpt_median_h;
    unsigned char *pixel_in;
-   int            pixel_out;
+   unsigned char *pixel_out;
    int   delay;
    int   pixel_new;
 };
