@@ -15,6 +15,8 @@ void Filter::getImage()
       pixel_new = 0;
       cpt_pixel_w  = 0;
       cpt_pixel_h  = 0;
+      cpt_median_w  = 0;
+      cpt_median_h  = 0;
       h_out = false;
       v_out = false;
       cout << "module: " << name() << "... reset!" << endl;
@@ -30,27 +32,17 @@ void Filter::getImage()
       {
          // on attend le prochain coup d'horloge
          pixel_in[cpt_pixel_h*720+cpt_pixel_w] = p_in;
-         pixel_new++;
-         delay++;
 
          // On a fini une image, on passe à la suivante
-         if(cpt_pixel_w++ > 720)
+         if(cpt_pixel_w++ >= 720-1)
          {
             cpt_pixel_w = 0;
-            if(cpt_pixel_h++ > 576)
+            if(cpt_pixel_h++ >= 576-1)
             {
                cpt_pixel_h = 0;
                debugImageIN();
             }
          }
-      }
-
-      //application du filtre
-      if(delay >= 721) median_filter();
-      else
-      {
-         h_out = false;
-         v_out = false;
       }
    }
 }
@@ -61,10 +53,10 @@ void Filter::getImage()
 void Filter::median_filter()
 {
    //cpt_median
-   if(cpt_median_w++ > 720)
+   if(++cpt_median_w > 720)
    {
       cpt_median_w = 0;
-      if(cpt_median_h++ > 576)
+      if(++cpt_median_h > 576)
       {
          cpt_median_h = 0;
          debugImageOUT();
@@ -119,7 +111,7 @@ void Filter::debugImageIN()
    name_s << "debug_in.png";
 
    // Lecture proprement dite de l'image PNG a l'aide de la libpng
-   std::cout << " DEBUG : Ecriture de l'image " << name_s.str() << endl;
+   std::cout << "DEBUG : Ecriture de l'image " << name_s.str() << endl;
    image_write(&image, name_s.str().c_str());
 }
 
