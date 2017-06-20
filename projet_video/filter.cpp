@@ -44,6 +44,7 @@ void Filter::getImage()
             }
          }
       }
+      median_filter();
    }
 }
 
@@ -53,10 +54,10 @@ void Filter::getImage()
 void Filter::median_filter()
 {
    //cpt_median
-   if(++cpt_median_w > 720)
+   if(cpt_median_w++ >= 720-1)
    {
       cpt_median_w = 0;
-      if(++cpt_median_h > 576)
+      if(cpt_median_h++ >= 576-1)
       {
          cpt_median_h = 0;
          debugImageOUT();
@@ -66,9 +67,6 @@ void Filter::median_filter()
    //h_out et v_out
    h_out = (cpt_median_h<576) && (cpt_median_w<720);
    v_out = (cpt_median_h<3);
-
-   if(cpt_median_h*720+cpt_median_w < 720*576-2) h_out = true;
-   else                                          h_out = false;
 
    int tmp = 0;
    for(int i=0; i<3; i++)
@@ -90,9 +88,6 @@ void Filter::median_filter()
    }
 
    p_out = pixel_out[cpt_median_h*720+cpt_median_w] = (unsigned char)tmp/9;
-   
-   if(delay <= 720*576+721) delay = 0;
-   pixel_new--;
 }
 
 /**************************

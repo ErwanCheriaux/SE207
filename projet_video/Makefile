@@ -31,6 +31,7 @@ clean :
 	-rm -f *~ *_old
 	-rm -f core
 	-rm -f wallace_out_*
+	-rm -f debug_*
 
 .%.d:%.c
 	$(CC) $(CPPFLAGS) -MM -MF $@ -MT $(patsubst %.c,%.o,$<) $<
