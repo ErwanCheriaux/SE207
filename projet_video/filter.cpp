@@ -4,7 +4,7 @@
 #include "filter.h"
 
 /***************************************************************************
- *      SC_THREAD principale
+ *      SC_THREAD principale MEDIAN
  ***************************************************************************/
 void Median::getImage()
 {
@@ -58,4 +58,66 @@ void Median::median()
 
    tmp = tmp/9;
    p_out = (unsigned char)tmp;
+}
+
+/***************************************************************************
+ *      SC_THREAD principale ZOOM
+ ***************************************************************************/
+void Zoom::getImage()
+{
+   reset_done = false;
+   if(reset_n == false)
+   {
+      cpt        = 0;
+      cpt_pixel  = 0;
+      cpt_buffer = 0;
+      cpt_zoom   = 0;
+      h_out = false;
+      v_out = false;
+      cout << "module: " << name() << "... reset!" << endl;
+      reset_done = true;
+   }
+   // boucle infinie
+   while(1)
+   {
+      wait();
+      if(!reset_done)
+         cerr << "module: " << name() << " démarré sans reset!" << endl;
+      if(h_in)
+      {
+         // on attend le prochain coup d'horloge
+         if(cpt_pixel > 144*720 and cpt_pixel < 432*720)
+         {
+            if(cpt_pixel%720 > 80 and cpt_pixel%720 < 540)
+            {
+               buffer[cpt_buffer] = p_in;
+               if(cpt_buffer++ >= (360-1)*(288-1)) cpt_buffer = 0;
+            }
+         }
+
+         if(cpt_pixel++ >= (720-1)*(576-1)) cpt = 0;
+
+         //filtrage
+         zoom();
+      }
+
+      //h_out et v_out
+      h_out = h_in;
+      v_out = h_out;
+   }
+}
+
+/**************************
+ *      FILTRE ZOOM
+ **************************/
+void Zoom::zoom()
+{
+   p_out = buffer[cpt_zoom];
+
+   if(cpt++ > 1)
+   {
+      cpt = 0;
+      if(cpt_zoom >= (360-1)*(288-1)) cpt_zoom=0;
+      else                            cpt_zoom++;
+   }
 }
