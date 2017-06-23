@@ -12,8 +12,6 @@ void Filter::getImage()
    if(reset_n == false)
    {
       cpt_pixel = 0;
-      cpt_median_w  = 0;
-      cpt_median_h  = 0;
       h_out = false;
       v_out = false;
       cout << "module: " << name() << "... reset!" << endl;
@@ -53,5 +51,6 @@ void Filter::median_filter()
          if(index-j >= 0)
             tmp += pixel_in[(index-j)+(720*i)];
 
-   p_out = (unsigned char)tmp/9;
+   tmp = tmp/9;
+   p_out = (unsigned char)tmp;
 }
