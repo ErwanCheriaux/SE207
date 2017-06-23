@@ -53,7 +53,8 @@ int sc_main (int argc, char *argv[])
      *******************************************************/
 
     VIDEO_IN  video_in  ("VIDEO_GEN");
-    Median    median    ("median");
+//  Median    median    ("median");
+    Zoom      zoom      ("zoom");
     VIDEO_OUT video_out ("VIDEO_OUT");
 
     /*********************************************************
@@ -66,14 +67,14 @@ int sc_main (int argc, char *argv[])
     video_in.vref      (signal_vref_in);
     video_in.pixel_out (signal_pixel_in);
 
-    median.clk         (signal_clk);
-    median.reset_n     (signal_resetn);
-    median.h_in        (signal_href_in);
-    median.v_in        (signal_vref_in);
-    median.p_in        (signal_pixel_in);
-    median.h_out       (signal_href_out);
-    median.v_out       (signal_vref_out);
-    median.p_out       (signal_pixel_out);
+    zoom.clk         (signal_clk);
+    zoom.reset_n     (signal_resetn);
+    zoom.h_in        (signal_href_in);
+    zoom.v_in        (signal_vref_in);
+    zoom.p_in        (signal_pixel_in);
+    zoom.h_out       (signal_href_out);
+    zoom.v_out       (signal_vref_out);
+    zoom.p_out       (signal_pixel_out);
 
     video_out.clk      (signal_clk);
     video_out.reset_n  (signal_resetn);

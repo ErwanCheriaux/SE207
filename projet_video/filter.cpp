@@ -86,16 +86,16 @@ void Zoom::getImage()
       if(h_in)
       {
          // on attend le prochain coup d'horloge
-         if(cpt_pixel > 144*720 and cpt_pixel < 432*720)
+         if(cpt_pixel >= 144*720 and cpt_pixel <= 432*720)
          {
-            if(cpt_pixel%720 > 80 and cpt_pixel%720 < 540)
+            if(cpt_pixel%720 >= 80 and cpt_pixel%720 <= 540)
             {
                buffer[cpt_buffer] = p_in;
-               if(cpt_buffer++ >= (360-1)*(288-1)) cpt_buffer = 0;
+               if(cpt_buffer++ >= 360*288-2) cpt_buffer = 0;
             }
          }
 
-         if(cpt_pixel++ >= (720-1)*(576-1)) cpt = 0;
+         if(cpt_pixel++ >= 720*576-2) cpt = 0;
 
          //filtrage
          zoom();
@@ -117,7 +117,7 @@ void Zoom::zoom()
    if(cpt++ > 1)
    {
       cpt = 0;
-      if(cpt_zoom >= (360-1)*(288-1)) cpt_zoom=0;
-      else                            cpt_zoom++;
+      if(cpt_zoom >= 360*288-2) cpt_zoom=0;
+      else                      cpt_zoom++;
    }
 }
