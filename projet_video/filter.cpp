@@ -11,7 +11,7 @@ void Filter::getImage()
    reset_done = false;
    if(reset_n == false)
    {
-      delay = 720;
+      delay = 720+1;
       cpt_pixel = 0;
       h_out = false;
       v_out = false;
