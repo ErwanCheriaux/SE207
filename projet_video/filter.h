@@ -85,7 +85,7 @@ SC_MODULE(Zoom) {
       dont_initialize();
 
       reset_done = false;
-      buffer     = (unsigned char *)malloc((720/2)*(576/2)*sizeof(unsigned char));
+      buffer     = (unsigned char *)malloc(360*288*sizeof(unsigned char));
 
       cout << "... réussie" << endl;
    }
