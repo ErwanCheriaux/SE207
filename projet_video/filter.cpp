@@ -11,6 +11,7 @@ void Filter::getImage()
    reset_done = false;
    if(reset_n == false)
    {
+      delay = 720;
       cpt_pixel = 0;
       h_out = false;
       v_out = false;
@@ -30,11 +31,15 @@ void Filter::getImage()
          if(cpt_pixel++ >= 720*3-1) cpt_pixel = 0;
 
          //filtrage
-         median_filter();
+         if(!delay) median_filter();
+         else       delay--;
       }
       //h_out et v_out
-      h_out = h_in;
-      v_out = h_out;
+      if(!delay)
+      {
+         h_out = h_in;
+         v_out = h_out;
+      }
    }
 }
 

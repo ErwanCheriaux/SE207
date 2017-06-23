@@ -50,8 +50,7 @@ SC_MODULE(Filter) {
    const std::string base_name; // nom de base des images d'entrée
    bool  reset_done;
    int   cpt_pixel;
-   int   cpt_median_w;
-   int   cpt_median_h;
+   int   delay;
 
    unsigned char *pixel_in;
 };
