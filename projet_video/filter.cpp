@@ -93,7 +93,6 @@ void Zoom::getImage()
 
          if(cpt_pixel++ >= 720*576-2) 
          {
-            cout << "buffer:" << cpt_buffer << "  pixel:" << cpt_pixel << endl;
             cpt_pixel  = 0;
             cpt_buffer = 0;
          }
@@ -117,11 +116,24 @@ void Zoom::getImage()
  **************************/
 void Zoom::zoom()
 {
+   static bool line   = false;
+   static int  column = 360;
    p_out = buffer[cpt_zoom];
-   cpt_zoom = cpt_zoom + ((cpt++)%2);
+
+   cpt_zoom = cpt_zoom + (1*line);
+
+   line = !line;
+
+   if(column++ > 360*2)
+   {
+      column   = 0;
+      cpt_zoom = cpt_zoom - 360;
+   }
+
    if(cpt_zoom >= 360*288-2)
    {
-      cpt = 0;
       cpt_zoom = 0;
+      line     = false;
+      column   = 360;
    }
 }
