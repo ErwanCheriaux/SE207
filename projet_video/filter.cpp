@@ -72,6 +72,7 @@ void Zoom::getImage()
       cpt_pixel  = 0;
       cpt_buffer = 0;
       cpt_zoom   = 0;
+      delay = 720*288+360;
       h_out = false;
       v_out = false;
       cout << "module: " << name() << "... reset!" << endl;
@@ -93,19 +94,21 @@ void Zoom::getImage()
          if(cpt_pixel++ >= 720*576-2) 
          {
             cout << "buffer:" << cpt_buffer << "  pixel:" << cpt_pixel << endl;
-            cpt        = 0;
             cpt_pixel  = 0;
             cpt_buffer = 0;
-            cpt_zoom   = 0;
          }
 
          //filtrage
-         zoom();
+         if(!delay) zoom();
+         else       delay--;
       }
 
       //h_out et v_out
-      h_out = h_in;
-      v_out = h_out;
+      if(!delay)
+      {
+         h_out = h_in;
+         v_out = h_out;
+      }
    }
 }
 
@@ -115,5 +118,10 @@ void Zoom::getImage()
 void Zoom::zoom()
 {
    p_out = buffer[cpt_zoom];
-   cpt_zoom = cpt_zoom + (cpt++)%2;
+   cpt_zoom = cpt_zoom + ((cpt++)%2);
+   if(cpt_zoom >= 360*288-2)
+   {
+      cpt = 0;
+      cpt_zoom = 0;
+   }
 }
