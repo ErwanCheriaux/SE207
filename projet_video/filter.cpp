@@ -6,13 +6,13 @@
 /***************************************************************************
  *      SC_THREAD principale
  ***************************************************************************/
-void Filter::getImage()
+void Median::getImage()
 {
    reset_done = false;
    if(reset_n == false)
    {
+      cpt   = 0;
       delay = 720+1;
-      cpt_pixel = 0;
       h_out = false;
       v_out = false;
       cout << "module: " << name() << "... reset!" << endl;
@@ -27,11 +27,11 @@ void Filter::getImage()
       if(h_in)
       {
          // on attend le prochain coup d'horloge
-         pixel_in[cpt_pixel] = p_in;
-         if(cpt_pixel++ >= 720*3-1) cpt_pixel = 0;
+         buffer[cpt] = p_in;
+         if(cpt++ >= 720*3-1) cpt = 0;
 
          //filtrage
-         if(!delay) median_filter();
+         if(!delay) median();
          else       delay--;
       }
       //h_out et v_out
@@ -46,15 +46,15 @@ void Filter::getImage()
 /**************************
  *      FILTRE MEDIAN
  **************************/
-void Filter::median_filter()
+void Median::median()
 {
    int tmp = 0;
-   int index = cpt_pixel%720;
+   int index = cpt%720;
 
    for(int i=0; i<3; i++)
       for(int j=0; j<3; j++)
          if(index-j >= 0)
-            tmp += pixel_in[(index-j)+(720*i)];
+            tmp += buffer[(index-j)+(720*i)];
 
    tmp = tmp/9;
    p_out = (unsigned char)tmp;

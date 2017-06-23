@@ -4,10 +4,10 @@
 #include <systemc.h>
 #include "image.h"
 
-/***************************************
- *  définition du module
- **************************************/
-SC_MODULE(Filter) {
+/************************************************
+ *  définition du module MEDIAN
+ ***********************************************/
+SC_MODULE(Median) {
 
    // IO PORTS
    sc_in<bool> clk;
@@ -24,7 +24,7 @@ SC_MODULE(Filter) {
    /***************************************************
     *  constructeur
     **************************************************/
-   SC_CTOR(Filter)
+   SC_CTOR(Median)
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
@@ -34,7 +34,7 @@ SC_MODULE(Filter) {
       dont_initialize();
 
       reset_done = false;
-      pixel_in   = (unsigned char *)malloc(720*3*sizeof(unsigned char));
+      buffer     = (unsigned char *)malloc(720*3*sizeof(unsigned char));
 
       cout << "... réussie" << endl;
    }
@@ -45,14 +45,14 @@ SC_MODULE(Filter) {
    private:
 
    void getImage();
-   void median_filter();
+   void median();
 
    const std::string base_name; // nom de base des images d'entrée
    bool  reset_done;
-   int   cpt_pixel;
+   int   cpt;
    int   delay;
 
-   unsigned char *pixel_in;
+   unsigned char *buffer;
 };
 
 #endif
