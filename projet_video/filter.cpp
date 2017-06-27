@@ -38,7 +38,7 @@ void Median::getImage()
       if(!delay)
       {
          h_out = h_in;
-         v_out = h_out;
+         v_out = v_in;
       }
    }
 }
@@ -106,7 +106,7 @@ void Zoom::getImage()
       if(!delay)
       {
          h_out = h_in;
-         v_out = h_out;
+         v_out = v_in;
       }
    }
 }
@@ -126,7 +126,7 @@ void Zoom::zoom()
 
    if(line++ > 360*2-2) line=0;
 
-   if(cpt_column++ > 360*4-4)
+   if(cpt_column++ > 360*4)
    {
       column++;
       cpt_column = 0;
