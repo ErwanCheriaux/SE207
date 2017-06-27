@@ -116,24 +116,27 @@ void Zoom::getImage()
  **************************/
 void Zoom::zoom()
 {
-   static bool line   = false;
-   static int  column = 360;
+   static int line       = 0;
+   static int column     = 0;
+   static int cpt_column = 0;
+
    p_out = buffer[cpt_zoom];
 
-   cpt_zoom = cpt_zoom + (1*line);
+   cpt_zoom = (line/2) + (360*column);
 
-   line = !line;
+   if(line++ > 360*2-2) line=0;
 
-   if(column++ > 360*2)
+   if(cpt_column++ > 360*4-4)
    {
-      column   = 0;
-      cpt_zoom = cpt_zoom - 360;
+      column++;
+      cpt_column = 0;
    }
 
    if(cpt_zoom >= 360*288-2)
    {
-      cpt_zoom = 0;
-      line     = false;
-      column   = 360;
+      cpt_zoom   = 0;
+      line       = 0;
+      column     = 0;
+      cpt_column = 0;
    }
 }
