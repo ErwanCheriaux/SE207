@@ -23,15 +23,6 @@ Donnez la liste de ces types (les grandes familles) en expliquant dans quels cas
 * uint32_t (unsigned int) : Permet de faire des calcules arithmétiques sur des entiers signés.
 * sc_uint<32>             : Permet de faire des calcules directement sur les bits.
 
-- `X` ceci est X
-- `Y` ceci est Y
-
-```{.cpp}
-// ceci est un exemple de code
-int main() {
-   return 0;
-}
-```
 ---
 
 ### Question 2
@@ -39,6 +30,8 @@ int main() {
 Pourquoi peut-on connecter *directement* la sortie (`sc_out<>`) d'un module à la sortie d'un autre module mais pas à une entrée (`sc_in<>`)?
 
 ---
+
+Les sc_out et sc_in sont des ports respectant un templet. Il faut les relier avec un sc_signal, instanrant la notion de propagation, pour les faires communiquer entre eux. Cependant, cela n'est pas nécéssaire lorsqu'il s'agit de 2 ports de sortie.
 
 ---
 
