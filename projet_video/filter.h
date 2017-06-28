@@ -35,6 +35,12 @@ SC_MODULE(Median) {
 
       reset_done = false;
 
+      //median
+//    filter[0][0] = 1; filter[0][1] = 1; filter[0][2] = 1;
+//    filter[1][0] = 1; filter[1][1] = 1; filter[1][2] = 1;
+//    filter[2][0] = 1; filter[2][1] = 1; filter[2][2] = 1;
+
+      //sobel
       filter[0][0] = 1; filter[0][1] = 0; filter[0][2] =-1;
       filter[1][0] = 2; filter[1][1] = 0; filter[1][2] =-2;
       filter[2][0] = 1; filter[2][1] = 0; filter[2][2] =-1;
