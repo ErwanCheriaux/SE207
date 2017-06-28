@@ -20,7 +20,8 @@ Donnez la liste de ces types (les grandes familles) en expliquant dans quels cas
 
 ---
 
-*Ceci est un exemple de réponse. **Merci d'effacer ce paragraphe** (mais de **laisser les groupes de trois tirets et les lignes vides avant et après eux**) lorsque vous y écrirez la vôtre.*
+* uint32_t (unsigned int) : Permet de faire des calcules arithmétiques sur des entiers signés.
+* sc_uint<32>             : Permet de faire des calcules directement sur les bits.
 
 - `X` ceci est X
 - `Y` ceci est Y
@@ -49,6 +50,9 @@ Pourquoi peut-on connecter *directement* la sortie (`sc_out<>`) d'un module à l
 
 ---
 
+Le programme ne se terminera jamais car le SC_METHOD gardera la main indéfiniment.
+Un wait() fera perdre la main au Scheduler qui gère le SC_METHOD.
+
 ---
 
 ### Question 4
@@ -61,7 +65,6 @@ Dans une première implémentation, nous utilisons un `sc_mutex` pour synchronis
 
 ```{.cpp}
     // Thread 1
-    step1_end_mutex.lock();
     // étape 1 du traitement
     step1_end_mutex.lock();
     …
@@ -102,6 +105,11 @@ Dans une seconde implémentation nous utilisons un `sc_signal` dont nous examino
 
 ---
 
+Dans le premier cas, le thread 2 va se bloquer en attendant que le mutex se libère. Le comportement est donc asynchrone.
+Dans le dexième cas, le thread 1 vérifie l'état du booléen tous les front montant de l'horloge. Le comportement est donc synchrone.
+
+Le nombre de calcule sera plus important dans le deuxième cas car le programme faira une vérification de la condition de sortie de boulcle tous les coups d'horloge.
+
 ---
 
 
@@ -112,6 +120,8 @@ Dans une seconde implémentation nous utilisons un `sc_signal` dont nous examino
 
 
 ---
+
+Les SC_THREAD permettent uniquement de faire une modélisation fonctionnelle car ces derniers fonctionne en autonomie. Il faut avoir recourt au SC_METHOD pour modéliser au niveau RTL.
 
 ---
 
