@@ -45,7 +45,7 @@ Les sc_out et sc_in sont des ports respectant un templet. Il faut les relier ave
 ---
 
 Le programme ne se terminera jamais car le SC_METHOD gardera la main indéfiniment.
-Un wait() fera perdre la main au Scheduler qui gère le SC_METHOD le programme deviendra ainsi bloquant.
+Un wait() fera perdre la main au Scheduler qui gère le SC_METHOD. Le programme deviendra ainsi bloquant.
 
 ---
 
