@@ -72,7 +72,7 @@ void Zoom::getImage()
       cpt_pixel  = 0;
       cpt_buffer = 0;
       cpt_zoom   = 0;
-      delay = 720*288+360;
+      delay = 720*576/2;
       h_out = false;
       v_out = false;
       cout << "module: " << name() << "... reset!" << endl;
@@ -91,7 +91,7 @@ void Zoom::getImage()
             if(cpt_pixel%720 >= 180 and cpt_pixel%720 < 540)
                buffer[cpt_buffer++] = p_in;
 
-         if(cpt_pixel++ >= 720*576-2) 
+         if(cpt_pixel++ >= 720*576-1)
          {
             cpt_pixel  = 0;
             cpt_buffer = 0;
@@ -132,7 +132,7 @@ void Zoom::zoom()
       cpt_column = 0;
    }
 
-   if(cpt_zoom >= 360*288-2)
+   if(cpt_pixel == 720*576/2)
    {
       cpt_zoom   = 0;
       line       = 0;
