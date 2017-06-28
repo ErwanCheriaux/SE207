@@ -117,7 +117,7 @@ La précision temporelle sera moindre dans le 2ème cas car le programme devra v
 
 ---
 
-Les SC_THREAD permettent uniquement de faire une modélisation fonctionnelle car ces derniers fonctionne en autonomie. Il faut avoir recourt au SC_METHOD pour modéliser au niveau RTL.
+Les SC_THREAD permettent uniquement de faire une modélisation fonctionnelle avec la posibilité d'ajouter des informations sur le temps avec des wait(). La version SC_THREAD servira uniquement de référence à la version SC_METHOD. Il faut avoir recourt au SC_METHOD pour modéliser au niveau RTL.
 
 ---
 
