@@ -21,7 +21,7 @@ SC_MODULE(VIDEO_OUT) {
    /***************************************************
     *  constructeur
     **************************************************/
-   SC_CTOR(VIDEO_OUT):base_name("wallace_out_")
+   SC_CTOR(VIDEO_OUT):base_name("wallace_copie")
    {
       cout << "Instanciation de " << name() <<" ..." ;
 

@@ -30,7 +30,7 @@ clean :
 	-rm -f *.vcd
 	-rm -f *~ *_old
 	-rm -f core
-	-rm -f wallace_out_*
+	-rm -f wallace_copie*
 	-rm -f debug_*
 
 .%.d:%.c
