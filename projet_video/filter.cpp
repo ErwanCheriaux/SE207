@@ -51,7 +51,7 @@ void Median::median()
 {
    int p = 0;
    int tmp = 0;
-   int center = cpt/720 +1;
+   int center =-cpt/720 + 2;
    int index  = cpt%720;
 
    for(int i=0; i<3; i++){
