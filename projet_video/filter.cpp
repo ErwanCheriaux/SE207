@@ -16,10 +16,6 @@ void Median::getImage()
       h_out = false;
       v_out = false;
 
-      for(int i=0; i<3; i++)
-         for(int j=0; j<3; j++)
-            filter[i][j] = 1;
-
       cout << "module: " << name() << "... reset!" << endl;
       reset_done = true;
    }
@@ -61,7 +57,7 @@ void Median::median()
       for(int j=0; j<3; j++){
          if(index-j >= 0){
             tmp += buffer[(index-j)+(720*i)] * filter[i][2-j];
-            p   += filter[i][2-j];
+            p   += abs(filter[i][2-j]);
          }
       }
    }

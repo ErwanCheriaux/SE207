@@ -34,6 +34,11 @@ SC_MODULE(Median) {
       dont_initialize();
 
       reset_done = false;
+
+      filter[0][0] = 1; filter[0][1] = 0; filter[0][2] =-1;
+      filter[1][0] = 2; filter[1][1] = 0; filter[1][2] =-2;
+      filter[2][0] = 1; filter[2][1] = 0; filter[2][2] =-1;
+
       buffer     = (unsigned char *)malloc(720*3*sizeof(unsigned char));
 
       cout << "... réussie" << endl;
