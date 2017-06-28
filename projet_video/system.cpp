@@ -45,16 +45,15 @@ int sc_main (int argc, char *argv[])
     sc_clock                        signal_clk("Clock", pix_period);
     sc_signal<bool>                 signal_resetn;
 
-    sc_signal<bool>                 signal_href_1,  signal_href_2,  signal_href_3;
-    sc_signal<bool>                 signal_vref_1,  signal_vref_2,  signal_vref_3;
-    sc_signal<unsigned char>        signal_pixel_1, signal_pixel_2, signal_pixel_3;
+    sc_signal<bool>                 signal_href_1,  signal_href_2;
+    sc_signal<bool>                 signal_vref_1,  signal_vref_2;
+    sc_signal<unsigned char>        signal_pixel_1, signal_pixel_2;
 
     /********************************************************
      *	Instanciation des modules
      *******************************************************/
 
     VIDEO_IN  video_in  ("VIDEO_GEN");
-    Zoom      zoom      ("zoom");
     Median    median    ("median");
     VIDEO_OUT video_out ("VIDEO_OUT");
 
@@ -67,30 +66,21 @@ int sc_main (int argc, char *argv[])
     video_in.href      (signal_href_1);
     video_in.vref      (signal_vref_1);
     video_in.pixel_out (signal_pixel_1);
-
-    zoom.clk           (signal_clk);
-    zoom.reset_n       (signal_resetn);
-    zoom.h_in          (signal_href_1);
-    zoom.v_in          (signal_vref_1);
-    zoom.p_in          (signal_pixel_1);
-    zoom.h_out         (signal_href_2);
-    zoom.v_out         (signal_vref_2);
-    zoom.p_out         (signal_pixel_2);
                        
     median.clk         (signal_clk);
     median.reset_n     (signal_resetn);
-    median.h_in        (signal_href_2);
-    median.v_in        (signal_vref_2);
-    median.p_in        (signal_pixel_2);
-    median.h_out       (signal_href_3);
-    median.v_out       (signal_vref_3);
-    median.p_out       (signal_pixel_3);
+    median.h_in        (signal_href_1);
+    median.v_in        (signal_vref_1);
+    median.p_in        (signal_pixel_1);
+    median.h_out       (signal_href_2);
+    median.v_out       (signal_vref_2);
+    median.p_out       (signal_pixel_2);
 
     video_out.clk      (signal_clk);
     video_out.reset_n  (signal_resetn);
-    video_out.href     (signal_href_3);
-    video_out.vref     (signal_vref_3);
-    video_out.pixel_in (signal_pixel_3);
+    video_out.href     (signal_href_2);
+    video_out.vref     (signal_vref_2);
+    video_out.pixel_in (signal_pixel_2);
 
     /*********************************************************
      *	Traces
@@ -110,13 +100,10 @@ int sc_main (int argc, char *argv[])
     /* chronogrammes video */
     TRACE( signal_href_1 );
     TRACE( signal_href_2 );
-    TRACE( signal_href_3 );
     TRACE( signal_vref_1 );
     TRACE( signal_vref_2 );
-    TRACE( signal_vref_3 );
     TRACE( signal_pixel_1 );
     TRACE( signal_pixel_2 );
-    TRACE( signal_pixel_3 );
 
 #undef TRACE
 

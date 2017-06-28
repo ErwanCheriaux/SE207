@@ -52,6 +52,8 @@ SC_MODULE(Median) {
    int   cpt;
    int   delay;
 
+   int filter[3][3];
+
    unsigned char *buffer;
 };
 

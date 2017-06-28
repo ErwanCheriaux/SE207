@@ -15,6 +15,11 @@ void Median::getImage()
       delay = 720+1;
       h_out = false;
       v_out = false;
+
+      for(int i=0; i<3; i++)
+         for(int j=0; j<3; j++)
+            filter[i][j] = 1;
+
       cout << "module: " << name() << "... reset!" << endl;
       reset_done = true;
    }
@@ -48,15 +53,20 @@ void Median::getImage()
  **************************/
 void Median::median()
 {
+   int p = 0;
    int tmp = 0;
    int index = cpt%720;
 
-   for(int i=0; i<3; i++)
-      for(int j=0; j<3; j++)
-         if(index-j >= 0)
-            tmp += buffer[(index-j)+(720*i)];
+   for(int i=0; i<3; i++){
+      for(int j=0; j<3; j++){
+         if(index-j >= 0){
+            tmp += buffer[(index-j)+(720*i)] * filter[i][2-j];
+            p   += filter[i][2-j];
+         }
+      }
+   }
 
-   tmp = tmp/9;
+   tmp = tmp/p;
    p_out = (unsigned char)tmp;
 }
 
