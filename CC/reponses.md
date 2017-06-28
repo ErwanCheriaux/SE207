@@ -45,7 +45,7 @@ Les sc_out et sc_in sont des ports respectant un templet. Il faut les relier ave
 ---
 
 Le programme ne se terminera jamais car le SC_METHOD gardera la main indéfiniment.
-Un wait() fera perdre la main au Scheduler qui gère le SC_METHOD.
+Un wait() fera perdre la main au Scheduler qui gère le SC_METHOD le programme deviendra ainsi bloquant.
 
 ---
 
@@ -99,10 +99,12 @@ Dans une seconde implémentation nous utilisons un `sc_signal` dont nous examino
 
 ---
 
-Dans le premier cas, le thread 2 va se bloquer en attendant que le mutex se libère. Le comportement est donc asynchrone.
-Dans le dexième cas, le thread 1 vérifie l'état du booléen tous les front montant de l'horloge. Le comportement est donc synchrone.
+Dans le premier cas, le thread 2 va se bloquer en attendant que le thead 1 libère le mutex. Le comportement est donc asynchrone car cela ne dépend pas de l'horloge.
+Dans le dexième cas, le thread 2 vérifie l'état du booléen tous les front montant de l'horloge. Le comportement est donc synchrone.
 
 Le nombre de calcule sera plus important dans le deuxième cas car le programme faira une vérification de la condition de sortie de boulcle tous les coups d'horloge.
+
+La précision temporelle sera moindre dans le 2ème cas car le programme devra vérifier la condition de sortie de boulcle avant de pouvoir continuer.
 
 ---
 
