@@ -126,7 +126,7 @@ void Zoom::zoom()
 
    if(line++ > 360*2-2) line=0;
 
-   if(cpt_column++ > 360*4)
+   if(cpt_column++ > 360*4 + 4)
    {
       column++;
       cpt_column = 0;
