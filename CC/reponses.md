@@ -21,7 +21,8 @@ Donnez la liste de ces types (les grandes familles) en expliquant dans quels cas
 ---
 
 * uint32_t (unsigned int) : Permet de faire des calcules arithmétiques sur des entiers signés.
-* sc_uint<32>             : Permet de faire des calcules directement sur les bits.
+* sc_uint<32>             : Permet de faire des calcules directement sur les bits avec une sélection des plage de bits.
+* sc_biguint<32>          : Pour des entiers supérieurs à 64 bits.
 
 ---
 
