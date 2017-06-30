@@ -10,3 +10,14 @@ Il faut mettre les entrer les commandes suivantes pour travailler sur un PC de l
 
 - export SYSTEMC=/comelec/softs/opt/systemc/current
 - export LDFLAGS="-L /comelec/softs/opt/systemc/current/lib-linux64"
+
+# projet-video
+
+## zoom
+make && ./simulation.x 2500000 && eog wallace_copie00.png
+
+## zoom + moyenneur
+make && ./simulation.x 2500000 moyenneur && eog wallace_copie00.png
+
+## zoom + sobel
+make && ./simulation.x 2500000 sobel && eog wallace_copie00.png
