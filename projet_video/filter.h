@@ -24,7 +24,9 @@ SC_MODULE(Moyenneur) {
    /***************************************************
     *  constructeur
     **************************************************/
-   SC_CTOR(Moyenneur)
+   SC_HAS_PROCESS(Moyenneur);
+
+   Moyenneur(sc_module_name n, std::string filter_type) :sc_module(n)
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
@@ -34,6 +36,26 @@ SC_MODULE(Moyenneur) {
       dont_initialize();
 
       reset_done = false;
+
+      if(filter_type == "sobel")
+      {
+         filter[0][0] = 1; filter[0][1] = 0; filter[0][2] =-1;
+         filter[1][0] = 2; filter[1][1] = 0; filter[1][2] =-2;
+         filter[2][0] = 1; filter[2][1] = 0; filter[2][2] =-1;
+      }
+      else if(filter_type == "moyenneur")
+      {  
+         filter[0][0] = 1; filter[0][1] = 1; filter[0][2] = 1;
+         filter[1][0] = 1; filter[1][1] = 1; filter[1][2] = 1;
+         filter[2][0] = 1; filter[2][1] = 1; filter[2][2] = 1;
+      }
+      else
+      {
+         filter[0][0] = 0; filter[0][1] = 0; filter[0][2] = 0;
+         filter[1][0] = 0; filter[1][1] = 1; filter[1][2] = 0;
+         filter[2][0] = 0; filter[2][1] = 0; filter[2][2] = 0;
+      }
+
       buffer     = (unsigned char *)malloc(720*3*sizeof(unsigned char));
 
       cout << "... réussie" << endl;
@@ -51,6 +73,8 @@ SC_MODULE(Moyenneur) {
    bool  reset_done;
    int   cpt;
    int   delay;
+
+   int filter[3][3];
 
    unsigned char *buffer;
 };

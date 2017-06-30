@@ -15,6 +15,7 @@ void Moyenneur::getImage()
       delay = 720+1;
       h_out = false;
       v_out = false;
+
       cout << "module: " << name() << "... reset!" << endl;
       reset_done = true;
    }
@@ -48,15 +49,21 @@ void Moyenneur::getImage()
  **************************/
 void Moyenneur::moyenneur()
 {
+   int p = 0;
    int tmp = 0;
-   int index = cpt%720;
+   int center =-cpt/720 + 2;
+   int index  = cpt%720;
 
-   for(int i=0; i<3; i++)
-      for(int j=0; j<3; j++)
-         if(index-j >= 0)
-            tmp += buffer[(index-j)+(720*i)];
+   for(int i=0; i<3; i++){
+      for(int j=0; j<3; j++){
+         if(index-j >= 0){
+            tmp += buffer[(720*i)+(index-j)] * filter[(i+center)%3][2-j];
+            p   += abs(filter[(i+center)%3][2-j]);
+         }
+      }
+   }
 
-   tmp = tmp/9;
+   if(p) tmp = tmp/p;
    p_out = (unsigned char)tmp;
 }
 

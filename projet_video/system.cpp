@@ -15,18 +15,29 @@
 #include "video_out.h"
 #include "filter.h"
 
+using namespace std;
+
 /***************************************************
  *	MAIN
  **************************************************/
 
 int sc_main (int argc, char *argv[])
 {
-    int	ncycles;
+    int	  ncycles;
+    string filter_type;
 
-    if (argc == 2) {
-        std::stringstream arg1(argv[1]);
+    if (argc >= 2)
+    {
+        stringstream arg1(argv[1]);
         arg1 >> ncycles;
-    } else {
+        if(argc >= 3)
+        {
+            stringstream arg2(argv[2]);
+            arg2 >> filter_type;
+        }
+    } 
+    else
+    {
         cout
            << endl
            << "Le nombre de cycles de simulation doit être passé en argument (-1 pour une simulation illimitée)"
@@ -55,7 +66,7 @@ int sc_main (int argc, char *argv[])
 
     VIDEO_IN  video_in  ("VIDEO_GEN");
     Zoom      zoom      ("zoom");
-    Moyenneur moyenneur ("moyenneur");
+    Moyenneur moyenneur ("moyenneur", filter_type);
     VIDEO_OUT video_out ("VIDEO_OUT");
 
     /*********************************************************
@@ -67,7 +78,7 @@ int sc_main (int argc, char *argv[])
     video_in.href      (signal_href_1);
     video_in.vref      (signal_vref_1);
     video_in.pixel_out (signal_pixel_1);
-
+                       
     zoom.clk           (signal_clk);
     zoom.reset_n       (signal_resetn);
     zoom.h_in          (signal_href_1);
@@ -76,7 +87,7 @@ int sc_main (int argc, char *argv[])
     zoom.h_out         (signal_href_2);
     zoom.v_out         (signal_vref_2);
     zoom.p_out         (signal_pixel_2);
-                       
+
     moyenneur.clk      (signal_clk);
     moyenneur.reset_n  (signal_resetn);
     moyenneur.h_in     (signal_href_2);
@@ -110,13 +121,10 @@ int sc_main (int argc, char *argv[])
     /* chronogrammes video */
     TRACE( signal_href_1 );
     TRACE( signal_href_2 );
-    TRACE( signal_href_3 );
     TRACE( signal_vref_1 );
     TRACE( signal_vref_2 );
-    TRACE( signal_vref_3 );
     TRACE( signal_pixel_1 );
     TRACE( signal_pixel_2 );
-    TRACE( signal_pixel_3 );
 
 #undef TRACE
 
