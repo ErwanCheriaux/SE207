@@ -4,9 +4,9 @@
 #include "filter.h"
 
 /***************************************************************************
- *      SC_THREAD principale MEDIAN
+ *      SC_THREAD principale MOYENNEUR
  ***************************************************************************/
-void Median::getImage()
+void Moyenneur::getImage()
 {
    reset_done = false;
    if(reset_n == false)
@@ -31,7 +31,7 @@ void Median::getImage()
          if(cpt++ >= 720*3-1) cpt = 0;
 
          //filtrage
-         if(!delay) median();
+         if(!delay) moyenneur();
          else       delay--;
       }
       //h_out et v_out
@@ -44,9 +44,9 @@ void Median::getImage()
 }
 
 /**************************
- *      FILTRE MEDIAN
+ *      FILTRE MOYENNEUR
  **************************/
-void Median::median()
+void Moyenneur::moyenneur()
 {
    int tmp = 0;
    int index = cpt%720;

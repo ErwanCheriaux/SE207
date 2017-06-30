@@ -5,9 +5,9 @@
 #include "image.h"
 
 /************************************************
- *  définition du module MEDIAN
+ *  définition du module MOYENNEUR
  ***********************************************/
-SC_MODULE(Median) {
+SC_MODULE(Moyenneur) {
 
    // IO PORTS
    sc_in<bool> clk;
@@ -24,7 +24,7 @@ SC_MODULE(Median) {
    /***************************************************
     *  constructeur
     **************************************************/
-   SC_CTOR(Median)
+   SC_CTOR(Moyenneur)
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
@@ -45,7 +45,7 @@ SC_MODULE(Median) {
    private:
 
    void getImage();
-   void median();
+   void moyenneur();
 
    const std::string base_name; // nom de base des images d'entrée
    bool  reset_done;

@@ -42,12 +42,12 @@ int sc_main (int argc, char *argv[])
     /* La période de l'horloge du signal vidéo */
     sc_time pix_period(74, SC_NS);
 
-    sc_clock                        signal_clk("Clock", pix_period);
-    sc_signal<bool>                 signal_resetn;
+    sc_clock                 signal_clk("Clock", pix_period);
+    sc_signal<bool>          signal_resetn;
 
-    sc_signal<bool>                 signal_href_1,  signal_href_2,  signal_href_3;
-    sc_signal<bool>                 signal_vref_1,  signal_vref_2,  signal_vref_3;
-    sc_signal<unsigned char>        signal_pixel_1, signal_pixel_2, signal_pixel_3;
+    sc_signal<bool>          signal_href_1,  signal_href_2,  signal_href_3;
+    sc_signal<bool>          signal_vref_1,  signal_vref_2,  signal_vref_3;
+    sc_signal<unsigned char> signal_pixel_1, signal_pixel_2, signal_pixel_3;
 
     /********************************************************
      *	Instanciation des modules
@@ -55,7 +55,7 @@ int sc_main (int argc, char *argv[])
 
     VIDEO_IN  video_in  ("VIDEO_GEN");
     Zoom      zoom      ("zoom");
-    Median    median    ("median");
+    Moyenneur moyenneur ("moyenneur");
     VIDEO_OUT video_out ("VIDEO_OUT");
 
     /*********************************************************
@@ -77,14 +77,14 @@ int sc_main (int argc, char *argv[])
     zoom.v_out         (signal_vref_2);
     zoom.p_out         (signal_pixel_2);
                        
-    median.clk         (signal_clk);
-    median.reset_n     (signal_resetn);
-    median.h_in        (signal_href_2);
-    median.v_in        (signal_vref_2);
-    median.p_in        (signal_pixel_2);
-    median.h_out       (signal_href_3);
-    median.v_out       (signal_vref_3);
-    median.p_out       (signal_pixel_3);
+    moyenneur.clk      (signal_clk);
+    moyenneur.reset_n  (signal_resetn);
+    moyenneur.h_in     (signal_href_2);
+    moyenneur.v_in     (signal_vref_2);
+    moyenneur.p_in     (signal_pixel_2);
+    moyenneur.h_out    (signal_href_3);
+    moyenneur.v_out    (signal_vref_3);
+    moyenneur.p_out    (signal_pixel_3);
 
     video_out.clk      (signal_clk);
     video_out.reset_n  (signal_resetn);
