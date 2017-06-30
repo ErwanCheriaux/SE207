@@ -63,7 +63,7 @@ void Median::median()
       }
    }
 
-   tmp = tmp/p;
+   if(p) tmp = tmp/p;
    p_out = (unsigned char)tmp;
 }
 

@@ -24,7 +24,9 @@ SC_MODULE(Median) {
    /***************************************************
     *  constructeur
     **************************************************/
-   SC_CTOR(Median)
+   SC_HAS_PROCESS(Median);
+
+   Median(sc_module_name n, std::string filter_type) :sc_module(n)
    {
       cout << "Instanciation de " << name() <<" ..." ;
 
@@ -35,15 +37,24 @@ SC_MODULE(Median) {
 
       reset_done = false;
 
-      //median
-//    filter[0][0] = 1; filter[0][1] = 1; filter[0][2] = 1;
-//    filter[1][0] = 1; filter[1][1] = 1; filter[1][2] = 1;
-//    filter[2][0] = 1; filter[2][1] = 1; filter[2][2] = 1;
-
-      //sobel
-      filter[0][0] = 1; filter[0][1] = 0; filter[0][2] =-1;
-      filter[1][0] = 2; filter[1][1] = 0; filter[1][2] =-2;
-      filter[2][0] = 1; filter[2][1] = 0; filter[2][2] =-1;
+      if(filter_type == "sobel")
+      {
+         filter[0][0] = 1; filter[0][1] = 0; filter[0][2] =-1;
+         filter[1][0] = 2; filter[1][1] = 0; filter[1][2] =-2;
+         filter[2][0] = 1; filter[2][1] = 0; filter[2][2] =-1;
+      }
+      else if(filter_type == "moyenneur")
+      {  
+         filter[0][0] = 1; filter[0][1] = 1; filter[0][2] = 1;
+         filter[1][0] = 1; filter[1][1] = 1; filter[1][2] = 1;
+         filter[2][0] = 1; filter[2][1] = 1; filter[2][2] = 1;
+      }
+      else
+      {
+         filter[0][0] = 0; filter[0][1] = 0; filter[0][2] = 0;
+         filter[1][0] = 0; filter[1][1] = 1; filter[1][2] = 0;
+         filter[2][0] = 0; filter[2][1] = 0; filter[2][2] = 0;
+      }
 
       buffer     = (unsigned char *)malloc(720*3*sizeof(unsigned char));
 

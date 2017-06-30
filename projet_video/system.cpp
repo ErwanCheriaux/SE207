@@ -15,18 +15,29 @@
 #include "video_out.h"
 #include "filter.h"
 
+using namespace std;
+
 /***************************************************
  *	MAIN
  **************************************************/
 
 int sc_main (int argc, char *argv[])
 {
-    int	ncycles;
+    int	  ncycles;
+    string filter_type =  "";
 
-    if (argc == 2) {
-        std::stringstream arg1(argv[1]);
+    if (argc >= 2)
+    {
+        stringstream arg1(argv[1]);
         arg1 >> ncycles;
-    } else {
+        if(argc >= 3)
+        {
+            stringstream arg2(argv[2]);
+            arg2 >> filter_type;
+        }
+    } 
+    else
+    {
         cout
            << endl
            << "Le nombre de cycles de simulation doit être passé en argument (-1 pour une simulation illimitée)"
@@ -54,7 +65,7 @@ int sc_main (int argc, char *argv[])
      *******************************************************/
 
     VIDEO_IN  video_in  ("VIDEO_GEN");
-    Median    median    ("median");
+    Median    median    ("median", filter_type);
     VIDEO_OUT video_out ("VIDEO_OUT");
 
     /*********************************************************
